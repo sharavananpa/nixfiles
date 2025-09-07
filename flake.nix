@@ -13,9 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew = {
-      url = "github:zhaofengli/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
     };
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
@@ -26,7 +28,7 @@
     #self.submodules = true;
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew, homebrew-cask }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew, homebrew-core, homebrew-cask }:
   let
     system = "aarch64-darwin";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -36,6 +38,11 @@
 
       homebrew = {
         enable = true;
+	brews = [
+	  "fastfetch"
+	  "sane-backends"
+	  "ghostscript"
+	];
         casks = [
           "kitty"
           "excalidrawz"
@@ -44,16 +51,21 @@
 	  "obs"
 	  "libndi"
 	  "utm"
+	  "rwts-pdfwriter"
 	  "zoom"
 	  "intellij-idea-ce"
 	  "pgadmin4"
 	  "balenaetcher"
+	  "adobe-acrobat-reader"
+	  "gimp"
         ];
-        taps = [
-          "homebrew/homebrew-cask"
-        ];
+	taps = [
+	  "homebrew/homebrew-core"
+	  "homebrew/homebrew-cask"
+	];
         onActivation = {
-          autoUpdate = false;
+          autoUpdate = true;
+	  upgrade = true;
           cleanup = "zap";
         };
       };
@@ -97,6 +109,7 @@
 
             # Optional: Declarative tap management
             taps = {
+	      "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
             };
 

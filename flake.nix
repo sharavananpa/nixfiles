@@ -39,24 +39,11 @@
       homebrew = {
         enable = true;
 	brews = [
-	  "fastfetch"
-	  "sane-backends"
-	  "ghostscript"
 	];
         casks = [
           "kitty"
           "excalidrawz"
-	  "anydesk"
 	  "cloudflare-warp"
-	  "obs"
-	  "libndi"
-	  "utm"
-	  "rwts-pdfwriter"
-	  "zoom"
-	  "intellij-idea-ce"
-	  "pgadmin4"
-	  "balenaetcher"
-	  "adobe-acrobat-reader"
 	  "gimp"
         ];
 	taps = [

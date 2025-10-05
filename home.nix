@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -60,8 +65,8 @@
     # '';
 
     ".config/stardict/dic" = {
-	    source = ./stardict;
-	    #recursive = true;
+      source = ./stardict;
+      #recursive = true;
     };
     ".config/starship.toml".source = ./dotfiles/starship/.config/starship.toml;
   };
@@ -131,7 +136,7 @@
       gco = "git checkout";
       gp = "git push";
       gl = "git log --oneline --graph --decorate";
-      
+
       c = "clear";
       h = "history";
       please = "sudo";

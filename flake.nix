@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,7 +20,7 @@
       url = "github:homebrew/homebrew-core";
       flake = false;
     };
-    
+
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
@@ -42,57 +42,16 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-
-      configuration =
-        { pkgs, ... }:
-        {
-          system.primaryUser = "shar";
-
-          homebrew = {
-            enable = true;
-            brews = [
-            ];
-            casks = [
-              "kitty"
-              "excalidrawz"
-              "cloudflare-warp"
-              "gimp"
-            ];
-            taps = [
-              "homebrew/homebrew-core"
-              "homebrew/homebrew-cask"
-            ];
-            onActivation = {
-              autoUpdate = true;
-              upgrade = true;
-              cleanup = "zap";
-            };
-          };
-
-          # List packages installed in system profile. To search by name, run:
-          # $ nix-env -qaP | grep wget
-          environment.systemPackages = [
-          ];
-
-          nix.settings.experimental-features = "nix-command flakes";
-
-          # Set Git commit hash for darwin-version.
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 6;
-
-          # The platform the configuration will be used on.
-          nixpkgs.hostPlatform = system;
-        };
     in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#macos
       darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit self system;
+        };
         modules = [
-          configuration
+          ./darwin-config.nix
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {

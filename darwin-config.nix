@@ -14,9 +14,19 @@
     ];
     casks = [
       "kitty"
+      "syncplay"
+      "discord"
+      "spotify"
       "excalidrawz"
+      "vlc"
+      "jdownloader"
       "cloudflare-warp"
       "gimp"
+      "obsidian"
+      "citrix-workspace"
+      "chromium"
+      "keka"
+      "qbittorrent"
     ];
     taps = [
       "homebrew/homebrew-core"

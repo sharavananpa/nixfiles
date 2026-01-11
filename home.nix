@@ -10,6 +10,9 @@
   # manage.
   home.username = "shar";
   home.homeDirectory = "/Users/shar";
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "vscode"
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -24,6 +27,7 @@
   # environment.
   home.packages = with pkgs; [
     neovim
+    ffmpeg
     tealdeer
     starship
     eza
@@ -35,7 +39,9 @@
     nerd-fonts.jetbrains-mono
     sdcv
     stow
+    nodejs_24
     librewolf
+    vscode
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -179,8 +185,12 @@
 
   programs.git = {
     enable = true;
-    userEmail = "sharavananpa@gmail.com";
-    userName = "Sharavanan Balasundaravel";
-    delta.enable = true;
+    settings.user.email = "sharavananpa@gmail.com";
+    settings.user.name = "Sharavanan Balasundaravel";
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
 }

@@ -53,6 +53,10 @@
         modules = [
           ./darwin-config.nix
           nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.users.shar = import ./home.nix;
+          }
           {
             nix-homebrew = {
               # Install Homebrew under the default prefix

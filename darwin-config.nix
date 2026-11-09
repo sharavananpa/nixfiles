@@ -8,6 +8,12 @@
 
   system.primaryUser = "shar";
 
+  # Required so Home Manager can resolve the user it manages.
+  # `uid` is intentionally omitted: nix-darwin only needs it to create users
+  # (we don't list `shar` in users.knownUsers), and Home Manager probes it
+  # with tryEval, leaving home.uid unset so its UID check stays portable.
+  users.users.shar.home = "/Users/shar";
+
   homebrew = {
     enable = true;
     brews = [

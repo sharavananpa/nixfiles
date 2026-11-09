@@ -26,6 +26,7 @@
       "keka"
       "qbittorrent"
       "librewolf"
+      "scroll-reverser"
     ];
     taps = [
       "homebrew/homebrew-core"

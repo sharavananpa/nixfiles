@@ -11,6 +11,7 @@
   homebrew = {
     enable = true;
     brews = [
+      "opencode"
     ];
     casks = [
       "kitty"
